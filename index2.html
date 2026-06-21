@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Studio | Portfolio</title>
+    <style>
+        /* ===== ОБНУЛЕННЯ СТИЛІВ ТА БАЗОВІ НАЛАШТУВАННЯ ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            line-height: 1.6;
+        }
+
+        /* Класс для скрытия элементов */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== КНОПКИ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА ===== */
+        .lang-switcher {
+            display: flex;
+            gap: 5px;
+            margin-right: 15px;
+        }
+
+        .lang-btn {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            color: #9ca3af;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            color: #ffffff;
+            border-color: #4b5563;
+        }
+
+        .lang-btn.active {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+            color: #ffffff;
+        }
+
+        /* ===== ФОРМА АВТОРИЗАЦІЇ / РЕГИСТРАЦІЇ ===== */
+        .auth-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .auth-box {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .auth-box h2 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .auth-box h2 span {
+            color: #3b82f6;
+        }
+
+        .auth-box p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .auth-form input {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 14px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .auth-form input:focus {
+            border-color: #3b82f6;
+        }
+
+        .auth-btn {
+            background-color: #3b82f6;
+            color: #ffffff;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+        }
+
+        .auth-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* Кнопка выхода в шапке сайта */
+        .logout-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .logout-btn:hover {
+            background-color: #dc2626;
+        }
+
+        /* ===== ШАПКА ТА НАВІГАЦІЯ ===== */
+        header {
+            background-color: rgba(17, 24, 39, 0.95);
+            border-bottom: 1px solid #1f2937;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #3b82f6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        /* ===== ГОЛОВНИЙ БАНЕР (HERO SECTION) ===== */
+        .hero {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: #3b82f6;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: #ffffff;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+        }
+
+        .cta-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+
+        /* ===== СЕКЦІЯ РОБІТ (PORTFOLIO / PRICE) ===== */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: #3b82f6;
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-top {
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .card p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .card-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+
+        .order-btn {
+            display: inline-block;
+            text-align: center;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            padding: 10px;
+            border-radius: 6px;
+            color: #3b82f6;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .order-btn:hover {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border-color: #3b82f6;
+        }
+
+        /* ===== ВСПЛЫВАЮЩЕЕ ОКНО АНКЕТЫ ЗАКАЗА (MODAL) ===== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 550px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #ef4444;
+        }
+
+        .modal-content h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .modal-content h3 span {
+            color: #3b82f6;
+        }
+
+        .modal-content p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .order-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .order-form input, .order-form textarea, .order-form select {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+
+        .order-form input:focus, .order-form textarea:focus, .order-form select:focus {
+            border-color: #3b82f6;
+        }
+
+        .order-form textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        /* Предупреждение об оплате */
+        .payment-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid #f59e0b;
+            color: #fbbf24;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* ===== КОНТАКТИДЛЯ СВЯЗИ (ВСПЛЫВАЮТ ПОСЛЕ ЗАКАЗА) ===== */
+        .success-contacts-box {
+            margin-top: 20px;
+            border-top: 1px solid #1f2937;
+            padding-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .contact-item {
+            display: block;
+            padding: 12px;
+            background-color: #1f2937;
+            border: 1px solid transparent;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: #3b82f6;
+            background-color: #1e3a8a;
+            transform: scale(1.01);
+        }
+
+        /* ===== СЕКЦІЯ ГАЛЕРЕЇ (GALLERY) ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            background-color: #111827;
+            aspect-ratio: 4 / 3;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* ===== СТИЛІ ДЛЯ АНКЕТИ (ПРО СЕБЕ) ===== */
+        .about-me-box {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 700px;
+            margin: 0 auto 50px auto;
+        }
+
+        .about-me-box h3 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+
+        .about-me-box p {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            color: #d1d5db;
+            text-align: left;
+        }
+
+        .about-me-box b {
+            color: #3b82f6;
+            margin-right: 5px;
+        }
+
+        .about-me-box a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .about-me-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== ПІДВАЛ (FOOTER) ===== */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+            border-top: 1px solid #1f2937;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== АДАПТИВНІСТЬ ДЛЯ МОБІЛОК ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav { flex-direction: column; gap: 15px; text-align: center; }
+            .nav-links { flex-direction: column; gap: 10px; }
+            .form-row { flex-direction: column; gap: 12px; }
+            .about-me-box { padding: 25px; margin: 0 20px 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- СЕКЦІЯ РЕЄСТРАЦІЇ -->
+    <div id="auth-screen" class="auth-wrapper">
+        <div class="auth-box">
+            <h2 data-lang-key="auth-title">Вітаємо у <span>Web Studio</span></h2>
+            <p data-lang-key="auth-desc">Будь ласка, зареєструйтеся або увійдіть, щоб отримати доступ до прайс-листа та замовлень.</p>
+            <form id="register-form" class="auth-form">
+                <input type="text" id="auth-username" placeholder="Ваш нікнейм / логін" required>
+                <input type="email" id="auth-email" placeholder="Ваш Email" required>
+                <input type="password" id="auth-password" placeholder="Придумайте пароль" required>
+                <button type="submit" class="auth-btn" data-lang-key="auth-btn">Зареєструватися та увійти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ГОЛОВНИЙ КОНТЕНТ САЙТУ -->
+    <div id="site-content" class="hidden">
+        <header>
+            <nav>
+                <div class="logo">Vsevolod</div>
+                <ul class="nav-links">
+                    <li><a href="#home" data-lang-key="nav-home">Головна</a></li>
+                    <li><a href="#projects" data-lang-key="nav-prices">Послуги & Ціни</a></li>
+                    <li><a href="#gallery" data-lang-key="nav-gallery">Галерея</a></li>
+                    <li><a href="#about" data-lang-key="nav-about">Про мене</a></li>
+                    
+                    <!-- КНОПКИ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА -->
+                    <div class="lang-switcher">
+                        <button class="lang-btn active" onclick="changeLanguage('uk')">UA</button>
+                        <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+                    </div>
+
+                    <li><button id="btn-logout" class="logout-btn" data-lang-key="nav-logout">Вийти</button></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="hero">
+            <h1 data-lang-key="hero-title">Привіт, я <span>Всеволод Кердман</span></h1>
+            <p data-lang-key="hero-desc">Починаючий Web-розробник. Створюю сучасні, швидкі моди, плагіни та адаптивні сайти на замовлення.</p>
+            <a href="#projects" class="cta-btn" data-lang-key="hero-btn">Дивитись прайс-лист</a>
+        </section>
+
+        <!-- СЕКЦІЯ ПОСЛУГ ТА ЦІН -->
+        <section id="projects" class="section">
+            <h2 class="section-title" data-lang-key="prices-title">Мої послуги та прайс-лист</h2>
+            <div class="grid">
+                
+                <!-- Картка 1 -->
+                <div class="card">
+                    <div class="card-top">
+                        <span class="card-icon">💻</span>
+                        <h3 data-lang-key="card1-title">Розробка сайтів</h3>
+                        <p data-lang-key="card1-desc">Верстка та програмування лендінгів, сайтів-візиток, портфоліо на HTML/CSS/JS "під ключ".</p>
+                    </div>
+                    <div>
+                        <div class="card-price" data-lang-key="card1-price">до €5.00</div>
+                        <button class="order-btn" data-service="Розробка сайтів" data-lang-key="card1-btn">Замовити сайт</button>
+                    </div>
+                </div>
+
+                <!-- Картка 2 -->
+                <div class="card">
+                    <div class="card-top">
+                        <span class="card-icon">⚙️</span>
+                        <h3 data-lang-key="card2-title">Minecraft Плагіни</h3>
+                        <p data-lang-key="card2-desc">Розробка кастомних плагинів (Spigot/Paper), налаштування прав (LuckPerms), виправлення помилок.</p>
+                    </div>
+                    <div>
+                        <div class="card-price" data-lang-key="card2-price">до €3.50</div>
+                        <button class="order-btn" data-service="Minecraft Плагіни" data-lang-key="card2-btn">Замовити плагін</button>
+                    </div>
+                </div>
+
+                <!-- Картка 3 -->
+                <div class="card">
+                    <div class="card-top">
+                        <span class="card-icon">⚡</span>
+                        <h3 data-lang-key="card3-title">Моди та Скрипти</h3>
+                        <p data-lang-key="card3-desc">Створення ігрових модифікацій (Forge/Fabric) или розробка унікальних скриптів під твої задачі.</p>
+                    </div>
+                    <div>
+                        <div class="card-price" data-lang-key="card3-price">до €4.50</div>
+                        <button class="order-btn" data-service="Моди та Скрипти" data-lang-key="card3-btn">Замовити мод</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ВСПЛЫВАЮЩЕЕ ОКНО: АНКЕТА ЗАКАЗА -->
+        <div id="order-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal-btn" class="close-modal">&times;</span>
+                <h3 data-lang-key="modal-title">Оформлення <span>Замовлення</span></h3>
+                <p data-lang-key="modal-desc">Заповніть анкету нижче, щоб надіслати заявку.</p>
+                
+                <form id="order-form" class="order-form">
+                    <select id="order-service" required>
+                        <option value="Розробка сайтів" data-lang-key="opt-site">Розробка сайтів (до €5.00)</option>
+                        <option value="Minecraft Плагіни" data-lang-key="opt-plugin">Minecraft Плагіни (до €3.50)</option>
+                        <option value="Моди та Скрипти" data-lang-key="opt-mod">Моди та Скрипти (до €4.50)</option>
+                    </select>
+
+                    <div class="form-row">
+                        <input type="text" id="client-firstname" placeholder="Ваше Ім'я" required>
+                        <input type="text" id="client-lastname" placeholder="Ваше Прізвище" required>
+                    </div>
+
+                    <input type="text" id="client-contact" placeholder="Ваш Telegram або Discord для зв'язку" required>
+                    
+                    <textarea id="order-details" placeholder="Опишіть ваше завдання (Для чого потрібен мод/сайт, що саме і як має працювати в ньому?)" required></textarea>
+                    
+                    <!-- Предупреждение об оплате -->
+                    <div class="payment-warning" data-lang-key="modal-warning">
+                        ⚠️ Зверніть увагу: оплата приймається тільки на українські картки (UAH)!
+                    </div>
+
+                    <button type="submit" id="submit-order-btn" class="auth-btn" data-lang-key="modal-submit">Надіслати замовлення</button>
+                </form>
+
+                <!-- БЛОК С КОНТАКТАМИ (Всплывает после отправки формы) -->
+                <div id="success-contacts" class="success-contacts-box hidden">
+                    <h4 id="success-header" style="color: #10b981; text-align: center; margin-bottom: 10px;" data-lang-key="success-title">🎉 Анкету успішно надіслано!</h4>
+                    <p id="success-p" style="font-size: 0.9rem; margin-bottom: 15px;" data-lang-key="success-desc">Щоб прискорити обробку, ви можете написати Всеволоду напряму:</p>
+                    <div class="contact-links">
+                        <a href="https://t.me/Angelo4ek266" target="_blank" class="contact-item" data-lang-key="contact-tg">✈️ Написати в Telegram: @Angelo4ek266</a>
+                        <a href="#" onclick="alert('Мій Discord: toxictop (скопіюйте та додайте в друзі)'); return false;" class="contact-item" data-lang-key="contact-ds">💬 Мій Discord: toxictop</a>
+                        <a href="tel:+380751034661" class="contact-item" data-lang-key="contact-call">📞 Зателефонувати: 075 103 4661</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <section id="gallery" class="section">
+            <h2 class="section-title" data-lang-key="gallery-title">Галерея зображень</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images.jfif" alt="Нічне місто">
+                </div>
+                <div class="gallery-item">
+                    <img src="Без названия (2).jfif" alt="Морське узбережжя">
+                </div>
+                <div class="gallery-item">
+                    <img src="Без названия.jfif" alt="Червоний захід сонця біля річки">
+                </div>
+                <div class="gallery-item">
+                    <img src="Без названия (1).jfif" alt="Краєвид вечірнього міста">
+                </div>
+            </div>
+        </section>
+
+        <!-- АНКЕТА ПРО СЕБЕ -->
+        <div id="about" class="about-me-box">
+            <h3 data-lang-key="about-title">Анкета про себе</h3>
+            <p><b data-lang-key="about-name-lbl">Прізвище та ім'я:</b> <span data-lang-key="about-name-val">Кердман Всеволод</span></p>
+            <p><b data-lang-key="about-age-lbl">Вік:</b> 14</p>
+            <p><b data-lang-key="about-date-lbl">Дата народження:</b> 21.10.2012</p>
+            <p><b data-lang-key="about-city-lbl">Місто / населений пункт:</b> <span data-lang-key="about-city-val">Україна</span></p>
+            <p><b data-lang-key="about-hobby-lbl">Хобі та захоплення:</b> <span data-lang-key="about-hobby-val">Web-розробка, створення сайтів, комп'ютерні ігри</span></p>
+            <p><b data-lang-key="about-fav-lbl">Моя улюблена книга / фильм / гра:</b> Minecraft, CS2</p>
+            <p><b data-lang-key="about-insp-lbl">Що мене надихає:</b> <span data-lang-key="about-insp-val">Круті та красиві веб-інтерфейси, успіхи у кодуванні</span></p>
+            <p><b data-lang-key="about-goal-lbl">Чого хочу навчитися цього року:</b> <span data-lang-key="about-goal-val">Добре опанувати JavaScript, покращити навички у Web розробці</span></p>
+            <p><b data-lang-key="about-fact-lbl">Цікавий факт про мене:</b> <span data-lang-key="about-fact-val">Створюю власні веб-проєкти з нуля і люблю оптимізувати код.</span></p>
+            <p><b data-lang-key="about-quote-lbl">Улюблена цитата:</b> <span data-lang-key="about-quote-val">«Упав — вставай, встав — упав, чокопай» — Кердман Всеволод</span></p>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 <span data-lang-key="footer-text">Всеволод Кердман. Усі права захищені.</span></p>
+        </footer>
+    </div>
+
+    <!-- ===== ЛОГІКА НА JAVASCRIPT ===== -->
+    <script>
+        // === СЛОВАРЬ ПЕРЕВОДОВ (UA / EN) ===
+        const translations = {
+            uk: {
+                "auth-title": "Вітаємо у <span>Web Studio</span>",
+                "auth-desc": "Будь ласка, зареєструйтеся або увійдіть, щоб отримати доступ до прайс-листа та замовлень.",
+                "auth-btn": "Зареєструватися та увійти",
+                "nav-home": "Головна",
+                "nav-prices": "Послуги & Ціни",
+                "nav-gallery": "Галерея",
+                "nav-about": "Про мене",
+                "nav-logout": "Вийти",
+                "hero-title": "Привіт, я <span>Всеволод Кердман</span>",
+                "hero-desc": "Починаючий Web-розробник. Створюю сучасні, швидкі моди, плагіни та адаптивні сайти на замовлення.",
+                "hero-btn": "Дивитись прайс-лист",
+                "prices-title": "Мої послуги та прайс-лист",
+                "card1-title": "Розробка сайтів",
+                "card1-desc": "Верстка та програмування лендінгів, сайтів-візиток, портфоліо на HTML/CSS/JS \"під ключ\".",
+                "card1-price": "до €5.00",
+                "card1-btn": "Замовити сайт",
+                "card2-title": "Minecraft Плагіни",
+                "card2-desc": "Розробка кастомних плагинів (Spigot/Paper), налаштування прав (LuckPerms), виправлення помилок.",
+                "card2-price": "до €3.50",
+                "card2-btn": "Замовити плагін",
+                "card3-title": "Моди та Скрипти",
+                "card3-desc": "Створення ігрових модифікацій (Forge/Fabric) або розробка унікальних скриптів під твої задачі.",
+                "card3-price": "до €4.50",
+                "card3-btn": "Замовити мод",
+                "modal-title": "Оформлення <span>Замовлення</span>",
+                "modal-desc": "Заповніть анкету нижче, щоб надіслати заявку.",
+                "opt-site": "Розробка сайтів (до €5.00)",
+                "opt-plugin": "Minecraft Плагіни (до €3.50)",
+                "opt-mod": "Моди та Скрипти (до €4.50)",
+                "modal-warning": "⚠️ Зверніть увагу: оплата приймається тільки на українські картки (UAH)!",
+                "modal-submit": "Надіслати замовлення",
+                "success-title": "🎉 Анкету успішно надіслано!",
+                "success-desc": "Щбто прискорити обробку, ви можете написати Всеволоду напряму:",
+                "contact-tg": "✈️ Написати в Telegram: @Angelo4ek266",
+                "contact-ds": "💬 Мій Discord: toxictop",
+                "contact-call": "📞 Зателефонувати: 075 103 4661",
+                "gallery-title": "Галерея зображень",
+                "about-title": "Анкета про себе",
+                "about-name-lbl": "Прізвище та ім'я:",
+                "about-name-val": "Кердман Всеволод",
+                "about-age-lbl": "Вік:",
+                "about-date-lbl": "Дата народження:",
+                "about-city-lbl": "Місто / населений пункт:",
+                "about-city-val": "Україна",
+                "about-hobby-lbl": "Хобі та захоплення:",
+                "about-hobby-val": "Web-розробка, створення сайтів, комп'ютерні ігри",
+                "about-fav-lbl": "Моя улюблена книга / фильм / гра:",
+                "about-insp-lbl": "Що мене надихає:",
+                "about-insp-val": "Круті та красиві веб-інтерфейси, успіхи у кодуванні",
+                "about-goal-lbl": "Чого хочу навчитися цього року:",
+                "about-goal-val": "Добре опанувати JavaScript, покращити навички у Web розробці",
+                "about-fact-lbl": "Цікавий факт про мене:",
+                "about-fact-val": "Створюю власні веб-проєкти з нуля і люблю оптимізувати код.",
+                "about-quote-lbl": "Улюблена цитата:",
+                "about-quote-val": "«Упав — вставай, встав — упав, чокопай» — Кердман Всеволод",
+                "footer-text": "Всеволод Кердман. Усі права захищені.",
+                "placeholder-name": "Ваше Ім'я",
+                "placeholder-lname": "Ваше Прізвище",
+                "placeholder-contact": "Ваш Telegram або Discord для зв'язку",
+                "placeholder-details": "Опишіть ваше завдання (Для чого потрібен мод/сайт, що саме і як має працювати в ньому?)"
+            },
+            en: {
+                "auth-title": "Welcome to <span>Web Studio</span>",
+                "auth-desc": "Please register or log in to get access to the price list and ordering system.",
+                "auth-btn": "Register & Log In",
+                "nav-home": "Home",
+                "nav-prices": "Services & Prices",
+                "nav-gallery": "Gallery",
+                "nav-about": "About me",
+                "nav-logout": "Log Out",
+                "hero-title": "Hi, I am <span>Vsevolod Kerdman</span>",
+                "hero-desc": "An aspiring Web Developer. I build modern, fast mods, plugins, and custom responsive websites.",
+                "hero-btn": "View Price List",
+                "prices-title": "My Services & Price List",
+                "card1-title": "Website Development",
+                "card1-desc": "Coding and designing landings, business cards, portfolios on HTML/CSS/JS \"turnkey\".",
+                "card1-price": "up to €5.00",
+                "card1-btn": "Order Website",
+                "card2-title": "Minecraft Plugins",
+                "card2-desc": "Custom plugin development (Spigot/Paper), rank setup (LuckPerms), bug fixing.",
+                "card2-price": "up to €3.50",
+                "card2-btn": "Order Plugin",
+                "card3-title": "Mods & Scripts",
+                "card3-desc": "Creating game modifications (Forge/Fabric) or developing unique scripts for your tasks.",
+                "card3-price": "up to €4.50",
+                "card3-btn": "Order Mod",
+                "modal-title": "Order <span>Placement</span>",
+                "modal-desc": "Fill out the form below to send your request.",
+                "opt-site": "Website Development (up to €5.00)",
+                "opt-plugin": "Minecraft Plugins (up to €3.50)",
+                "opt-mod": "Mods & Scripts (up to €4.50)",
+                "modal-warning": "⚠️ Please note: payment is accepted only on Ukrainian bank cards (UAH)!",
+                "modal-submit": "Submit Order",
+                "success-title": "🎉 Form submitted successfully!",
+                "success-desc": "To speed up the process, you can contact Vsevolod directly:",
+                "contact-tg": "✈️ Message on Telegram: @Angelo4ek266",
+                "contact-ds": "💬 My Discord: toxictop",
+                "contact-call": "📞 Call: 075 103 4661",
+                "gallery-title": "Image Gallery",
+                "about-title": "Profile Summary",
+                "about-name-lbl": "First & Last Name:",
+                "about-name-val": "Vsevolod Kerdman",
+                "about-age-lbl": "Age:",
+                "about-date-lbl": "Date of Birth:",
+                "about-city-lbl": "Country / Location:",
+                "about-city-val": "Ukraine",
+                "about-hobby-lbl": "Hobbies & Interests:",
+                "about-hobby-val": "Web development, building websites, computer games",
+                "about-fav-lbl": "Favorite book / movie / game:",
+                "about-insp-lbl": "What inspires me:",
+                "about-insp-val": "Clean and beautiful web UI, successes in programming",
+                "about-goal-lbl": "What I want to learn this year:",
+                "about-goal-val": "Master JavaScript fully, level up Web Development skills",
+                "about-fact-lbl": "Interesting fact about me:",
+                "about-fact-val": "I build web projects from scratch and love optimizing source code.",
+                "about-quote-lbl": "Favorite quote:",
+                "about-quote-val": "«Fell down — get up, stood up — fell down, chocopie» — Vsevolod Kerdman",
+                "footer-text": "Vsevolod Kerdman. All rights reserved.",
+                "placeholder-name": "Your First Name",
+                "placeholder-lname": "Your Last Name",
+                "placeholder-contact": "Your Telegram or Discord username",
+                "placeholder-details": "Describe your task (What is the mod/site for, how exactly should it work?)"
+            }
+        };
+
+        // Функция изменения языка
+        function changeLanguage(lang) {
+            // Сохраняем выбор в память
+            localStorage.setItem('selectedLang', lang);
+
+            // Перебираем все элементы с атрибутом data-lang-key
+            const elements = document.querySelectorAll('[data-lang-key]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Динамически переводим placeholder'ы формы анкета
+            document.getElementById('client-firstname').placeholder = translations[lang]["placeholder-name"];
+            document.getElementById('client-lastname').placeholder = translations[lang]["placeholder-lname"];
+            document.getElementById('client-contact').placeholder = translations[lang]["placeholder-contact"];
+            document.getElementById('order-details').placeholder = translations[lang]["placeholder-details"];
+
+            // Переключаем активную кнопку в дизайне
+            const langButtons = document.querySelectorAll('.lang-btn');
+            langButtons.forEach(btn => btn.classList.remove('active'));
+            
+            if (lang === 'uk') {
+                langButtons[0].classList.add('active');
+                document.documentElement.lang = "uk";
+            } else {
+                langButtons[1].classList.add('active');
+                document.documentElement.lang = "en";
+            }
+        }
+
+        // === ИНИЦИАЛИЗАЦИЯ И ДРУГАЯ ЛОГИКА САЙТА ===
+        const authScreen = document.getElementById('auth-screen');
+        const siteContent = document.getElementById('site-content');
+        const registerForm = document.getElementById('register-form');
+        const btnLogout = document.getElementById('btn-logout');
+
+        const orderModal = document.getElementById('order-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const orderForm = document.getElementById('order-form');
+        const orderServiceSelect = document.getElementById('order-service');
+        const successContacts = document.getElementById('success-contacts');
+        const submitOrderBtn = document.getElementById('submit-order-btn');
+
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('userLoggedIn');
+            if (isLoggedIn === 'true') {
+                authScreen.classList.add('hidden');
+                siteContent.classList.remove('hidden');
+            } else {
+                authScreen.classList.remove('hidden');
+                siteContent.classList.add('hidden');
+            }
+
+            // Загружаем язык (если сохранен, иначе по умолчанию украинский)
+            const savedLang = localStorage.getItem('selectedLang') || 'uk';
+            changeLanguage(savedLang);
+        }
+
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            localStorage.setItem('userLoggedIn', 'true');
+            localStorage.setItem('username', document.getElementById('auth-username').value);
+            checkLoginStatus();
+        });
+
+        btnLogout.addEventListener('click', function() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('username');
+            checkLoginStatus();
+        });
+
+        const orderButtons = document.querySelectorAll('.order-btn');
+        orderButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const serviceName = this.getAttribute('data-service');
+                orderServiceSelect.value = serviceName;
+
+                successContacts.classList.add('hidden');
+                submitOrderBtn.classList.remove('hidden');
+                orderModal.classList.add('active');
+            });
+        });
+
+        closeModalBtn.addEventListener('click', function() {
+            orderModal.classList.remove('active');
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === orderModal) {
+                orderModal.classList.remove('active');
+            }
+        });
+
+        orderForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Перевод алертов на нужный язык
+            const currentLang = localStorage.getItem('selectedLang') || 'uk';
+            
+            submitOrderBtn.classList.add('hidden');
+            successContacts.classList.remove('hidden');
+
+            document.getElementById('client-firstname').value = '';
+            document.getElementById('client-lastname').value = '';
+            document.getElementById('client-contact').value = '';
+            document.getElementById('order-details').value = '';
+        });
+
+        window.addEventListener('DOMContentLoaded', checkLoginStatus);
+    </script>
+</body>
+</html>
